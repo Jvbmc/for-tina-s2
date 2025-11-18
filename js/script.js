@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const botao = document.getElementById("botao-musica");
   let tocando = false;
 
-  // === Animação das telas ===
-  const telaObserver = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -17,33 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
     { threshold: 0.3 }
   );
 
-  telas.forEach((tela) => telaObserver.observe(tela));
-
-  // === Animação das fotos (com delay crescente) ===
-  const fotoObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add("visivel");
-          }, index * 200); // 200ms entre cada foto
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  fotos.forEach((foto) => fotoObserver.observe(foto));
-
-  // === Carregar imagens via data-img ===
-  document.querySelectorAll(".img").forEach((img) => {
-    const url = img.getAttribute("data-img");
-    if (url) {
-      img.style.backgroundImage = `url('${url}')`;
-    }
+  telas.forEach((t) => observer.observe(t));
+  fotos.forEach((f, i) => {
+    observer.observe(f);
+    setTimeout(() => {
+      if (f.getBoundingClientRect().top < window.innerHeight) {
+        f.classList.add("visivel");
+      }
+    }, i * 200);
   });
 
-  // === Controle de música ===
   botao.addEventListener("click", () => {
     if (tocando) {
       audio.pause();
@@ -56,11 +38,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     tocando = !tocando;
   });
-});
-// ... (mesmo código anterior) ...
-document.querySelectorAll(".img").forEach((img) => {
-  const url = img.getAttribute("data-img");
-  if (url) {
-    img.style.backgroundImage = `url('${url}')`;
-  }
 });

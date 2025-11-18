@@ -1,4 +1,3 @@
-/* Reset e base */
 * {
   margin: 0;
   padding: 0;
@@ -6,23 +5,22 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  overflow-x: hidden;
+  font-family: "Segoe UI", sans-serif;
   background: #fff0f5;
   color: #4b0082;
+  overflow-x: hidden;
 }
 
-/* Telas */
 .tela {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 4rem 1rem;
   text-align: center;
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s ease-out;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .tela.visivel {
@@ -31,96 +29,118 @@ body {
 }
 
 .conteudo {
+  width: 100%;
   max-width: 90%;
-}
-
-/* Cores pastéis */
-.tela1 {
-  background-color: #ffe4e1;
-}
-.tela2 {
-  background-color: #e0ffff;
-}
-.tela3 {
-  background-color: #fdfd96;
-}
-.tela4 {
-  background-color: #ffb6c1;
 }
 
 h1,
 h2 {
-  margin-bottom: 1rem;
-  font-weight: 600;
   color: #d81b60;
+  margin-bottom: 1rem;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 h2 {
-  font-size: 1.7rem;
+  font-size: 1.9rem;
 }
 
 p {
-  margin: 1rem 0;
   font-size: 1.1rem;
   line-height: 1.6;
+  margin: 1rem 0;
 }
 
 .assinatura {
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: #6a1b9a;
+  margin-top: 3rem;
   font-style: italic;
+  color: #6a1b9a;
+  font-size: 1rem;
 }
 
-/* Imagens (substitua com suas fotos) */
-.imagem {
+.tela1 {
+  background: #ffe4e1;
+}
+.tela2 {
+  background: #e0ffff;
+}
+.tela3 {
+  background: #fdfd96;
+}
+.tela4 {
+  background: #ffb6c1;
+}
+
+/* GALERIA */
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 3rem 0;
+  padding: 1rem;
+}
+
+.foto {
+  opacity: 0;
+  transform: translateY(30px) rotate(0deg);
+  transition: all 0.9s ease;
+  width: 260px;
+  max-width: 88vw;
+  padding: 14px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  transform: rotate(var(--rot, 0deg));
+}
+
+.foto.visivel {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--rot, 0deg));
+}
+
+.foto img {
   width: 100%;
-  max-width: 300px;
-  height: 200px;
-  margin: 1.5rem auto;
-  background: #fff;
-  border-radius: 12px;
-  border: 3px dashed #ff80ab;
-  background-size: cover;
-  background-position: center;
+  height: auto;
+  border-radius: 10px;
+  border: 5px solid #ff80ab;
+  display: block;
 }
 
-/* Exemplos de imagens (ajuste os caminhos!) */
-.tela1 .imagem {
-  background-image: url("fotos/tela1.jpg");
+/* Rotações individuais */
+.foto:nth-child(1) {
+  --rot: -8deg;
 }
-.tela2 .imagem {
-  background-image: url("fotos/tela2.jpg");
+.foto:nth-child(2) {
+  --rot: 7deg;
 }
-.tela3 .imagem {
-  background-image: url("fotos/tela3.jpg");
+.foto:nth-child(3) {
+  --rot: -5deg;
 }
-.tela4 .imagem {
-  background-image: url("fotos/tela4.jpg");
+.foto:nth-child(4) {
+  --rot: 9deg;
+}
+.foto:nth-child(5) {
+  --rot: -6deg;
+}
+.foto:nth-child(6) {
+  --rot: -10deg;
+}
+.foto:nth-child(7) {
+  --rot: 5deg;
+}
+.foto:nth-child(8) {
+  --rot: -7deg;
+}
+.foto:nth-child(9) {
+  --rot: 8deg;
+}
+.foto:nth-child(10) {
+  --rot: -9deg;
 }
 
-/* Responsivo */
-@media (min-width: 600px) {
-  .conteudo {
-    max-width: 600px;
-  }
-  h1 {
-    font-size: 2.5rem;
-  }
-  h2 {
-    font-size: 2rem;
-  }
-  .imagem {
-    height: 250px;
-    max-width: 400px;
-  }
-}
-/* ... (todo o CSS anterior permanece) ... */
-
-/* Botão flutuante de música */
+/* BOTÃO MÚSICA */
 .botao-musica {
   position: fixed;
   bottom: 20px;
@@ -131,14 +151,13 @@ p {
   border: none;
   border-radius: 50%;
   color: white;
-  font-size: 2rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
 }
 
 .botao-musica:hover {
@@ -146,168 +165,38 @@ p {
   background: #ff6090;
 }
 
-.botao-musica.playing #icone-musica::before {
-  content: "Pause Music";
-}
-
-.botao-musica:not(.playing) #icone-musica::before {
-  content: "Play Music";
-}
-
-/* Responsivo: esconde texto em telas pequenas */
 @media (max-width: 480px) {
   .botao-musica {
     width: 50px;
     height: 50px;
-    font-size: 1.5rem;
   }
   #icone-musica {
     display: none;
   }
-  .botao-musica::before {
+  .botao-musica::after {
     content: "";
   }
-  .botao-musica.playing::before {
+  .botao-musica.playing::after {
     content: "";
   }
 }
-/* ... (CSS anterior mantido) ... */
 
-/* ========================================
-GALERIA DE FOTOS ESPALHADAS - VERSÃO CORRIGIDA
-   ======================================== */
-
-/* Remove overflow: hidden e aumenta altura automaticamente */
-.galeria {
-  position: relative;
-  width: 100%;
-  min-height: 400px; /* Altura mínima */
-  margin: 2.5rem 0;
-  padding: 2rem 0; /* Espaço interno */
-  overflow: visible !important; /* NUNCA mais corta! */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Fotos como polaroids flutuantes */
-.foto {
-  opacity: 0;
-  transform: translateY(30px) rotate(0deg);
-  transition: all 0.8s ease-out;
-  width: 240px; /* Aumentado */
-  max-width: 90vw; /* Nunca ultrapassa a tela */
-  aspect-ratio: 4 / 5; /* Proporção polaroid */
-  padding: 14px;
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-  position: relative;
-  z-index: 1;
-}
-
-.foto.visivel {
-  opacity: 1;
-  transform: translateY(0) rotate(var(--rot, 0deg));
-}
-
-/* Imagem dentro da polaroid */
-.foto .img {
-  width: 100%;
-  height: 100%;
-  background: #f8f8f8;
-  border: 4px solid #ff80ab;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* ========================================
-   POSIÇÕES ESPALHADAS (sem % fixo = sem corte!)
-   ======================================== */
-
-/* Usa flex + ordem para espalhar sem overflow */
-.tela1 .galeria {
-  order: 1;
-}
-.tela2 .galeria {
-  order: 2;
-}
-.tela3 .galeria {
-  order: 3;
-}
-.tela4 .galeria {
-  order: 4;
-}
-
-/* Rotação suave por foto */
-.f1 {
-  --rot: -8deg;
-}
-.f2 {
-  --rot: 7deg;
-}
-.f3 {
-  --rot: -5deg;
-}
-.f4 {
-  --rot: 9deg;
-}
-.f5 {
-  --rot: -6deg;
-}
-.f6 {
-  --rot: -10deg;
-}
-.f7 {
-  --rot: 5deg;
-}
-.f8 {
-  --rot: -7deg;
-}
-.f9 {
-  --rot: 8deg;
-}
-.f10 {
-  --rot: -9deg;
-}
-
-/* ========================================
-   RESPONSIVO (perfeito em qualquer celular)
-   ======================================== */
-
-@media (max-width: 480px) {
-  .foto {
-    width: 180px;
-    padding: 10px;
-  }
-  .foto .img {
-    border-width: 3px;
-  }
-  .galeria {
-    min-height: 300px;
-    gap: 0.8rem;
-  }
-}
-
+/* RESPONSIVO */
 @media (min-width: 600px) {
   .foto {
-    width: 280px;
-    padding: 16px;
+    width: 300px;
+    padding: 18px;
   }
-  .foto .img {
-    border-width: 5px;
+  h1 {
+    font-size: 2.8rem;
   }
-  .galeria {
-    min-height: 450px;
+  h2 {
+    font-size: 2.3rem;
   }
 }
 
 @media (min-width: 768px) {
   .galeria {
-    gap: 2rem;
+    gap: 2.5rem;
   }
 }
